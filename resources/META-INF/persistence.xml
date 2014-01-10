@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+	
+	
+		<persistence-unit name="mysql1" transaction-type="JTA">
+			<description>generated-persistence-unit</description>
+					<provider>org.hibernate.ejb.HibernatePersistence</provider>
+      			<class>app.domain.Salaire</class>
+      			<class>app.domain.Collaborateur</class>
+      			<class>app.domain.Bu</class>
+      			<class>app.domain.Diplome</class>
+<class>app.domain.ManagerRhStatus</class>
+<class>app.domain.Ecole</class>
+<class>app.domain.Profile</class>
+<class>app.domain.Droit</class>
+<class>app.domain.Niveau</class>
+<class>app.domain.Compte</class>
+<class>app.domain.TechnologiesMaitrisees</class>
+<class>app.domain.Technologie</class>
+<class>app.domain.Poste</class>
+   			<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		</persistence-unit>
+
+	
+</persistence>
