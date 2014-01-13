@@ -587,4 +587,15 @@ public class CollaborateurDAOImpl extends AbstractJpaDao<Collaborateur>
 	public boolean canBeMerged(Collaborateur entity) {
 		return true;
 	}
+	
+	
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Set<Collaborateur> findAllManagersRH() throws DataAccessException {
+		Query query = createNamedQuery("findAllManagersRH", -1, -1);
+		return new LinkedHashSet<Collaborateur>(query.getResultList());
+	}
+
+	
 }

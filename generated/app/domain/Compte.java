@@ -80,6 +80,11 @@ public class Compte implements Serializable {
 	@JoinColumns({ @JoinColumn(name = "Profile", referencedColumnName = "Id", nullable = false) })
 	@XmlTransient
 	Profile profile;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumns({ @JoinColumn(name = "Manager_rh_status_id", referencedColumnName = "Id", nullable = true) })
+	@XmlTransient
+	ManagerRhStatus managerrhstatus;
 	/**
 	 */
 	@OneToMany(mappedBy = "compte", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)

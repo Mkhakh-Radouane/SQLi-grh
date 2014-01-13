@@ -224,6 +224,11 @@ public interface CollaborateurDAO extends JpaDao<Collaborateur> {
 	 *
 	 */
 	public Set<Collaborateur> findAllCollaborateurs() throws DataAccessException;
+	/**
+	 * JPQL Query - findAllManagersRH
+	 *
+	 */
+	public Set<Collaborateur> findAllManagersRH() throws DataAccessException;
 
 	/**
 	 * JPQL Query - findAllCollaborateurs

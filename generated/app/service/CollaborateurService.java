@@ -52,6 +52,12 @@ public interface CollaborateurService {
 	 * 
 	 */
 	public Set<Collaborateur> loadCollaborateurs();
+	/**
+	 * Charger le managerRH
+	 * 
+	 */
+	public Set<Collaborateur> loadManagerRH();
+
 
 	/**
 	 * Delete an existing Bu entity

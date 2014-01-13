@@ -4,6 +4,35 @@
 <html>
 <head>
 <title>Edit <fmt:message key="compte.title"/></title>
+<script>
+ function ShowManagerRHList(){
+        $.getJSON(
+             "stateslist.html", 
+             {countryId: $('#country').val()},
+             function(data) {
+                  var html = '';
+                  var len = data.length;
+                  for(var i=0; i<len; i++){
+                       html += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                   }
+                  $('#state').append(html);
+             }
+          );
+ }
+
+ $(document).ready(function() {
+         $('#profile').change(function()
+          { 
+       
+           if ($('#profile').val() == 1) {
+						alert("ManagerRH");
+							
+						}
+          });
+      });
+
+
+</script>
 </head>
 <body>
 <div id="contentarea">      
@@ -65,10 +94,57 @@
 							<fmt:message key="profile.profilefield.title"/>:
 						</td>
 						<td>
-						  <form:select path="profile" required="true">
-	                <form:option value="-" label="--Select a profile"/>
+						  <form:select path="profile" id="profile" required="true">
+	                <form:option value="-" label="-- Selectionner un profile --"/>
                 <form:options items="${profiles}" itemValue="id" itemLabel="profileField" />
 	          </form:select>
+						</td>
+					</tr>
+					<tr>
+						<td class="label" valign="top">
+							<fmt:message key="Liste Managers RH"/>:
+						</td>
+						<td>
+						<div id="tablemanagRH" >
+						<table id="listTable" cellpadding="0" cellspacing="0">
+							<thead>
+								<tr>
+									<th class="thead">&nbsp;</th>
+									<th class="thead"><fmt:message key="niveau.id.title"/></th>
+									<th class="thead"><fmt:message key="niveau.niveaufield.title"/></th>
+								</tr>
+							</thead>
+					<tbody>
+						<c:forEach items="${niveaus}" var="current" varStatus="i">
+							<c:choose>
+								<c:when test="${(i.count) % 2 == 0}">
+				    				<c:set var="rowclass" value="rowtwo"/>
+								</c:when>
+								<c:otherwise>
+				    				<c:set var="rowclass" value="rowone"/>
+								</c:otherwise>
+							</c:choose>	
+						<tr class="${rowclass}">
+							<td nowrap="nowrap" class="tabletd">
+								<a title="<fmt:message key="navigation.view" />" href="${pageContext.request.contextPath}/selectNiveau?idKey=${current.id}&"><img src="images/icons/view.gif" /></a>
+								<a title="<fmt:message key="navigation.edit" />" href="${pageContext.request.contextPath}/editNiveau?idKey=${current.id}&"><img src="images/icons/edit.gif" /></a>
+								<a title="<fmt:message key="navigation.delete" />" href="${pageContext.request.contextPath}/confirmDeleteNiveau?idKey=${current.id}&"><img src="images/icons/delete.gif" /></a>
+							</td>
+							<td nowrap="nowrap" class="tabletd">
+								
+									${current.id}
+								&nbsp;
+							</td>
+							<td nowrap="nowrap" class="tabletd">
+								
+									${current.niveauField}
+								&nbsp;
+							</td>
+						</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+								
 						</td>
 					</tr>
 					<tr>

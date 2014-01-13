@@ -20,6 +20,7 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "findAllCollaborateurs", query = "select myCollaborateur from Collaborateur myCollaborateur"),
+		@NamedQuery(name = "findAllManagersRH", query = "select myCollaborateur from Collaborateur myCollaborateur"),
 		@NamedQuery(name = "findCollaborateurByAbreviation", query = "select myCollaborateur from Collaborateur myCollaborateur where myCollaborateur.abreviation = ?1"),
 		@NamedQuery(name = "findCollaborateurByAbreviationContaining", query = "select myCollaborateur from Collaborateur myCollaborateur where myCollaborateur.abreviation like ?1"),
 		@NamedQuery(name = "findCollaborateurByActualManagerRh", query = "select myCollaborateur from Collaborateur myCollaborateur where myCollaborateur.actualManagerRh = ?1"),

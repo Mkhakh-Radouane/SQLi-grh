@@ -232,4 +232,10 @@ public class CollaborateurServiceImpl implements CollaborateurService {
 
 		return collaborateur;
 	}
+
+	@Override
+	public Set<Collaborateur> loadManagerRH() {
+		
+		return collaborateurDAO.findAllManagersRH();
+		}
 }

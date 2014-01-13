@@ -8,12 +8,13 @@ import java.util.Set;
 import app.dao.CompteDAO;
 import app.dao.ManagerRhStatusDAO;
 import app.dao.ProfileDAO;
+import app.domain.Collaborateur;
 import app.domain.Compte;
 import app.domain.ManagerRhStatus;
 import app.domain.Profile;
+import app.service.CollaborateurService;
 import app.service.CompteService;
 import app.service.ProfileService;
-
 import app.service.converters.ProfileEditor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.WebDataBinder;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -67,6 +70,8 @@ public class CompteController {
 	private CompteService compteService;
 	@Autowired
 	private ProfileService profileService;
+	@Autowired
+	private CollaborateurService collaborateurService;
 
 	/**
 	 * Show all Compte entities
@@ -330,20 +335,22 @@ public class CompteController {
 
 		return mav;
 	}
+	//ajax table response
+	
+	
 
 	/**
 	 * Create a new Compte entity
 	 * 
 	 */
+	
 	@RequestMapping("/newCompte")
 	public ModelAndView newCompte() {
 		ModelAndView mav = new ModelAndView();
 		
 		Set<Profile> profiles= profileService.loadProfiles();
-		Map<String,String> profileList = new LinkedHashMap<String,String>();
-		for (Profile profile : profiles) {
-			profileList.put(profile.getId().toString(),profile.getProfileField().toString());
-		}
+		Set<Collaborateur> colaborateurs= collaborateurService.loadCollaborateurs();
+		mav.addObject("collaborateurs", colaborateurs);
 		mav.addObject("profiles", profiles);
 		mav.addObject("compte", new Compte());
 		mav.addObject("newFlag", true);
