@@ -60,6 +60,7 @@ public class Compte implements Serializable {
 	@XmlElement
 	String password;
 	/**
+	 * 
 	 */
 
 	@Column(name = "Email", length = 254)
@@ -87,9 +88,7 @@ public class Compte implements Serializable {
 	ManagerRhStatus managerrhstatus;
 	/**
 	 */
-	@OneToMany(mappedBy = "compte", cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY)
-	@XmlElement(name = "", namespace = "")
-	java.util.Set<app.domain.ManagerRhStatus> managerRhStatuses;
+
 
 	/**
 	 */

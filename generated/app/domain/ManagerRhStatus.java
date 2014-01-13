@@ -53,12 +53,7 @@ public class ManagerRhStatus implements Serializable {
 	@XmlElement
 	Boolean activation;
 
-	/**
-	 */
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumns({ @JoinColumn(name = "Compte", referencedColumnName = "Id", nullable = false) })
-	@XmlTransient
-	Compte compte;
+	
 
 	/**
 	 */
@@ -98,15 +93,7 @@ public class ManagerRhStatus implements Serializable {
 
 	/**
 	 */
-	public void setCompte(Compte compte) {
-		this.compte = compte;
-	}
 
-	/**
-	 */
-	public Compte getCompte() {
-		return compte;
-	}
 
 	/**
 	 */
@@ -121,7 +108,7 @@ public class ManagerRhStatus implements Serializable {
 		setId(that.getId());
 		setCollaborateur(that.getCollaborateur());
 		setActivation(that.getActivation());
-		setCompte(that.getCompte());
+	
 	}
 
 	/**
