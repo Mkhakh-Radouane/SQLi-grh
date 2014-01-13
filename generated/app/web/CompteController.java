@@ -349,7 +349,7 @@ public class CompteController {
 		ModelAndView mav = new ModelAndView();
 		
 		Set<Profile> profiles= profileService.loadProfiles();
-		Set<Collaborateur> colaborateurs= collaborateurService.loadCollaborateurs();
+		Set<Collaborateur> colaborateurs= collaborateurService.loadManagerRH();
 		mav.addObject("collaborateurs", colaborateurs);
 		mav.addObject("profiles", profiles);
 		mav.addObject("compte", new Compte());

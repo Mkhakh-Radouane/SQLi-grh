@@ -63,8 +63,7 @@ public class ManagerRhStatusServiceImpl implements ManagerRhStatusService {
 		ManagerRhStatus managerrhstatus = managerRhStatusDAO.findManagerRhStatusByPrimaryKey(managerrhstatus_id, -1, -1);
 		Compte related_compte = compteDAO.findCompteByPrimaryKey(related_compte_id, -1, -1);
 
-		managerrhstatus.setCompte(null);
-		related_compte.getManagerRhStatuses().remove(managerrhstatus);
+		
 		managerrhstatus = managerRhStatusDAO.store(managerrhstatus);
 		managerRhStatusDAO.flush();
 
@@ -127,8 +126,8 @@ public class ManagerRhStatusServiceImpl implements ManagerRhStatusService {
 			related_compte = existingcompte;
 		}
 
-		managerrhstatus.setCompte(related_compte);
-		related_compte.getManagerRhStatuses().add(managerrhstatus);
+
+
 		managerrhstatus = managerRhStatusDAO.store(managerrhstatus);
 		managerRhStatusDAO.flush();
 

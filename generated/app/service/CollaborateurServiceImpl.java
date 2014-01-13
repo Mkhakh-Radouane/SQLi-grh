@@ -233,7 +233,11 @@ public class CollaborateurServiceImpl implements CollaborateurService {
 		return collaborateur;
 	}
 
-	@Override
+	/**
+	 * Load an existing Maneger RH entity
+	 * 
+	 */
+	@Transactional
 	public Set<Collaborateur> loadManagerRH() {
 		
 		return collaborateurDAO.findAllManagersRH();

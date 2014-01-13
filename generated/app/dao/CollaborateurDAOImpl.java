@@ -590,7 +590,6 @@ public class CollaborateurDAOImpl extends AbstractJpaDao<Collaborateur>
 	
 	
 
-	@SuppressWarnings("unchecked")
 	@Transactional
 	public Set<Collaborateur> findAllManagersRH() throws DataAccessException {
 		Query query = createNamedQuery("findAllManagersRH", -1, -1);

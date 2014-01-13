@@ -20,7 +20,7 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "findAllCollaborateurs", query = "select myCollaborateur from Collaborateur myCollaborateur"),
-		//@NamedQuery(name = "findAllManagersRH", query = "select c from Collaborateur c inner JOIN ManatugerRhStatus mrh  on  c.id  = mrh.collaborateur inner JOIN Compte cmt  on  cmt.managerrhstatus  = mrh.id where c.id IN (select mrh2.collaborateur from ManatugerRhStatus mrh2 ) AND mrh.id NOT IN (Select cmt2.managerrhstatus from Compte cmt2) "),
+		@NamedQuery(name = "findAllManagersRH", query = "select c from Compte cmt   JOIN cmt.managerrhstatus AS mrh  JOIN mrh.collaborateur AS c  where c.matricule IN (select mrh2.collaborateur from ManagerRhStatus mrh2 ) AND mrh.id NOT IN (Select cmt2.managerrhstatus from Compte cmt2) "),
 		@NamedQuery(name = "findCollaborateurByAbreviation", query = "select myCollaborateur from Collaborateur myCollaborateur where myCollaborateur.abreviation = ?1"),
 		@NamedQuery(name = "findCollaborateurByAbreviationContaining", query = "select myCollaborateur from Collaborateur myCollaborateur where myCollaborateur.abreviation like ?1"),
 		@NamedQuery(name = "findCollaborateurByActualManagerRh", query = "select myCollaborateur from Collaborateur myCollaborateur where myCollaborateur.actualManagerRh = ?1"),

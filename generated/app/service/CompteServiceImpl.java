@@ -133,8 +133,8 @@ public class CompteServiceImpl implements CompteService {
 			related_managerrhstatuses = existingmanagerRhStatuses;
 		}
 
-		related_managerrhstatuses.setCompte(compte);
-		compte.getManagerRhStatuses().add(related_managerrhstatuses);
+		
+		
 		related_managerrhstatuses = managerRhStatusDAO.store(related_managerrhstatuses);
 		managerRhStatusDAO.flush();
 
@@ -177,8 +177,8 @@ public class CompteServiceImpl implements CompteService {
 
 		Compte compte = compteDAO.findCompteByPrimaryKey(compte_id, -1, -1);
 
-		related_managerrhstatuses.setCompte(null);
-		compte.getManagerRhStatuses().remove(related_managerrhstatuses);
+		
+	
 
 		managerRhStatusDAO.remove(related_managerrhstatuses);
 		managerRhStatusDAO.flush();

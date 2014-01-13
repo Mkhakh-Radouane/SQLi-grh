@@ -107,15 +107,15 @@
 						<td>
 						<div id="tablemanagRH" >
 						<table id="listTable" cellpadding="0" cellspacing="0">
-							<thead>
-								<tr>
-									<th class="thead">&nbsp;</th>
-									<th class="thead"><fmt:message key="niveau.id.title"/></th>
-									<th class="thead"><fmt:message key="niveau.niveaufield.title"/></th>
-								</tr>
-							</thead>
+					<thead>
+						<tr>
+							<th class="thead">&nbsp;</th>
+							<th class="thead"><fmt:message key="niveau.id.title"/></th>
+							<th class="thead"><fmt:message key="niveau.niveaufield.title"/></th>
+						</tr>
+					</thead>
 					<tbody>
-						<c:forEach items="${niveaus}" var="current" varStatus="i">
+						<c:forEach items="${collaborateurs}" var="current" varStatus="i">
 							<c:choose>
 								<c:when test="${(i.count) % 2 == 0}">
 				    				<c:set var="rowclass" value="rowtwo"/>
@@ -126,18 +126,18 @@
 							</c:choose>	
 						<tr class="${rowclass}">
 							<td nowrap="nowrap" class="tabletd">
-								<a title="<fmt:message key="navigation.view" />" href="${pageContext.request.contextPath}/selectNiveau?idKey=${current.id}&"><img src="images/icons/view.gif" /></a>
-								<a title="<fmt:message key="navigation.edit" />" href="${pageContext.request.contextPath}/editNiveau?idKey=${current.id}&"><img src="images/icons/edit.gif" /></a>
-								<a title="<fmt:message key="navigation.delete" />" href="${pageContext.request.contextPath}/confirmDeleteNiveau?idKey=${current.id}&"><img src="images/icons/delete.gif" /></a>
+								<a title="<fmt:message key="navigation.view" />" href="${pageContext.request.contextPath}/selectNiveau?idKey=${current.matricule}&"><img src="images/icons/view.gif" /></a>
+								<a title="<fmt:message key="navigation.edit" />" href="${pageContext.request.contextPath}/editNiveau?idKey=${current.matricule}&"><img src="images/icons/edit.gif" /></a>
+								<a title="<fmt:message key="navigation.delete" />" href="${pageContext.request.contextPath}/confirmDeleteNiveau?idKey=${current.matricule}&"><img src="images/icons/delete.gif" /></a>
 							</td>
 							<td nowrap="nowrap" class="tabletd">
 								
-									${current.id}
+									${current.matricule}
 								&nbsp;
 							</td>
 							<td nowrap="nowrap" class="tabletd">
 								
-									${current.niveauField}
+									${current.nom}
 								&nbsp;
 							</td>
 						</tr>

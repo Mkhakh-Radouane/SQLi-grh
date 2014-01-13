@@ -164,19 +164,11 @@ public class Compte implements Serializable {
 
 	/**
 	 */
-	public void setManagerRhStatuses(Set<ManagerRhStatus> managerRhStatuses) {
-		this.managerRhStatuses = managerRhStatuses;
-	}
+
 
 	/**
 	 */
-	public Set<ManagerRhStatus> getManagerRhStatuses() {
-		if (managerRhStatuses == null) {
-			managerRhStatuses = new java.util.LinkedHashSet<app.domain.ManagerRhStatus>();
-		}
-		return managerRhStatuses;
-	}
-
+	
 	/**
 	 */
 	public Compte() {
@@ -193,7 +185,7 @@ public class Compte implements Serializable {
 		setEmail(that.getEmail());
 		setActivation(that.getActivation());
 		setProfile(that.getProfile());
-		setManagerRhStatuses(new java.util.LinkedHashSet<app.domain.ManagerRhStatus>(that.getManagerRhStatuses()));
+	
 	}
 
 	/**

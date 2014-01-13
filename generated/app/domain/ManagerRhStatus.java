@@ -1,17 +1,17 @@
 package app.domain;
 
 import java.io.Serializable;
-
 import java.lang.StringBuilder;
-
 import java.util.Set;
 
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-
 import javax.xml.bind.annotation.*;
-
 import javax.persistence.*;
 
 /**
@@ -40,11 +40,10 @@ public class ManagerRhStatus implements Serializable {
 	Integer id;
 	/**
 	 */
-
-	@Column(name = "Collaborateur", nullable = false)
-	@Basic(fetch = FetchType.EAGER)
-	@XmlElement
-	Integer collaborateur;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumns({ @JoinColumn(name = "Collaborateur", referencedColumnName = "matricule", nullable = false) })
+	@XmlTransient
+	Collaborateur collaborateur;
 	/**
 	 */
 
@@ -69,13 +68,13 @@ public class ManagerRhStatus implements Serializable {
 
 	/**
 	 */
-	public void setCollaborateur(Integer collaborateur) {
+	public void setCollaborateur(Collaborateur collaborateur) {
 		this.collaborateur = collaborateur;
 	}
 
 	/**
 	 */
-	public Integer getCollaborateur() {
+	public Collaborateur getCollaborateur() {
 		return this.collaborateur;
 	}
 
