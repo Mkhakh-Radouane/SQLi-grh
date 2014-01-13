@@ -175,6 +175,7 @@ public class CompteDAOImpl extends AbstractJpaDao<Compte> implements CompteDAO {
 	@Transactional
 	public Set<Compte> findAllComptes(int startResult, int maxRows) throws DataAccessException {
 		Query query = createNamedQuery("findAllComptes", startResult, maxRows);
+	
 		return new LinkedHashSet<Compte>(query.getResultList());
 	}
 

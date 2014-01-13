@@ -19,11 +19,41 @@
 	
 
     <bean id="org.skyway.spring.util.webservice.cxf.WSSecurityOutInterceptor" class="org.skyway.spring.util.webservice.cxf.WSSecurityOutInterceptor"/>
+	<bean id="org.skyway.spring.util.webservice.cxf.SpringSecurityCallbackHandler" class="org.skyway.spring.util.webservice.cxf.SpringSecurity3xCallbackHandler" >
+		<property name="authenticationManager">
+			<ref bean="authenticationManager" />
+		</property>
+	</bean>
+    <bean id="org.skyway.spring.util.webservice.cxf.WSSecurityInInterceptor" class="org.skyway.spring.util.webservice.cxf.WSSecurityInInterceptor">
+		<property name="callbackHandler">
+			<ref bean="org.skyway.spring.util.webservice.cxf.SpringSecurityCallbackHandler" />
+		</property>
+		<property name="securedServiceEndPointNames">
+			<list>
+				<value>IBuServiceEndpoint</value>
+				<value>ICollaborateurServiceEndpoint</value>
+				<value>ICompteServiceEndpoint</value>
+				<value>IDiplomeServiceEndpoint</value>
+				<value>IDroitServiceEndpoint</value>
+				<value>IEcoleServiceEndpoint</value>
+				<value>IManagerRhStatusServiceEndpoint</value>
+				<value>INiveauServiceEndpoint</value>
+				<value>IPosteServiceEndpoint</value>
+				<value>IProfileServiceEndpoint</value>
+				<value>ISalaireServiceEndpoint</value>
+				<value>ITechnologieServiceEndpoint</value>
+				<value>ITechnologiesMaitriseesServiceEndpoint</value>
+			</list>
+		</property>
+    </bean>
 
     <cxf:bus>
         <cxf:outInterceptors>
             <ref bean="org.skyway.spring.util.webservice.cxf.WSSecurityOutInterceptor"/>
         </cxf:outInterceptors>
+        <cxf:inInterceptors>
+            <ref bean="org.skyway.spring.util.webservice.cxf.WSSecurityInInterceptor"/>
+        </cxf:inInterceptors>
         <!-- Uncomment to enable logging of incoming/outgoing requests
 		<cxf:features > 
 			<cxf:logging /> 

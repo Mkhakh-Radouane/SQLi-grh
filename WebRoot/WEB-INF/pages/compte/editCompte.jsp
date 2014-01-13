@@ -62,6 +62,17 @@
 					</tr>
 					<tr>
 						<td class="label" valign="top">
+							<fmt:message key="profile.profilefield.title"/>:
+						</td>
+						<td>
+						  <form:select path="profile" required="true">
+	                <form:option value="-" label="--Select a profile"/>
+                <form:options items="${profiles}"/>
+	          </form:select>
+						</td>
+					</tr>
+					<tr>
+						<td class="label" valign="top">
 							<fmt:message key="compte.activation.title"/>:
 						</td>
 						<td>

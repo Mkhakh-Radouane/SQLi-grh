@@ -7,7 +7,8 @@
 	<!-- ******************************************************************** -->
 	<!-- Scan for dao layer annotated beans -->
 	<!-- ******************************************************************** -->
-	<context:component-scan base-package="app.dao" scoped-proxy="interfaces"/>
+	<context:component-scan base-package="app" scoped-proxy="interfaces"/>
+<context:component-scan base-package="app.dao" scoped-proxy="interfaces"/>
 	
 	<!-- ******************************************************************** -->
 	<!-- Mark bean transactions as annotation driven -->
@@ -46,7 +47,15 @@
 	
 	
 				<!-- Using Apache DBCP Data Sources -->
-				<bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" name="mysql1DS">
+				<bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" name="mysql_connectorDS,springSecurityDataSource">
+					<property name="driverClassName" value="${mysql_connector.connection.driver_class}"/>
+					<property name="username" value="${mysql_connector.connection.username}"/>
+					<property name="password" value="${mysql_connector.connection.password}"/>
+					<property name="url" value="${mysql_connector.connection.url}"/>
+					<property name="maxIdle" value="${mysql_connector.minPoolSize}"/>
+					<property name="maxActive" value="${mysql_connector.maxPoolSize}"/>
+				</bean>
+<bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" name="mysql1DS">
 					<property name="driverClassName" value="${mysql1.connection.driver_class}"/>
 					<property name="username" value="${mysql1.connection.username}"/>
 					<property name="password" value="${mysql1.connection.password}"/>
@@ -64,13 +73,29 @@
 
 	
 				<!-- Configure a JPA vendor adapter -->
-				<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" id="mysql1JPAVendorAdapter">
+				<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" id="mysql_connectorJPAVendorAdapter">
+					<property name="showSql" value="${mysql_connector.show_sql}"/>
+					<property name="generateDdl" value="${mysql_connector.generateDdl}"/>
+					<property name="databasePlatform" value="${mysql_connector.dialect}"/>
+				</bean>
+<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" id="mysql1JPAVendorAdapter">
 					<property name="showSql" value="${mysql1.show_sql}"/>
 					<property name="generateDdl" value="${mysql1.generateDdl}"/>
 					<property name="databasePlatform" value="${mysql1.dialect}"/>
 				</bean>
 				<!-- EntityManager Factory that brings together the persistence unit, datasource, and JPA Vendor -->
-				<bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="mysql1">
+				<bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="mysql_connector">
+					<property name="dataSource" ref="mysql_connectorDS"/>
+					<property name="persistenceUnitName" value="mysql_connector"/>
+					<property name="jpaVendorAdapter" ref="mysql_connectorJPAVendorAdapter"/>
+						<property name="jpaPropertyMap">
+							<map>
+										<entry key="hibernate.transaction.manager_lookup_class" value="com.atomikos.icatch.jta.hibernate3.TransactionManagerLookup"/>
+										<entry key="hibernate.connection.release_mode" value="on_close"/>
+							</map>
+						</property>
+				</bean>
+<bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="mysql1">
 					<property name="dataSource" ref="mysql1DS"/>
 					<property name="persistenceUnitName" value="mysql1"/>
 					<property name="jpaVendorAdapter" ref="mysql1JPAVendorAdapter"/>

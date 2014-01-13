@@ -35,7 +35,7 @@
 	
 	<!-- Allows for mapping the DispatcherServlet to "/" by forwarding static resource requests to the container's default Servlet -->
 	<mvc:default-servlet-handler/>
-	
+	<mvc:annotation-driven conversion-service="conversionService"/>
 	<!-- ******************************************************************** -->
 	<!-- Mark bean transactions as annotation driven -->
 	<!-- ******************************************************************** -->
@@ -46,6 +46,17 @@
 	<!-- ******************************************************************** -->	
 	<bean id="multipartResolver" class="org.skyway.spring.util.web.binary.ModelBindingMultipartResolver" />
 	
+	<!-- ******************************************************************** -->
+	<!-- Converter -->
+	<!-- ******************************************************************** -->	
+	<bean id="conversionService"
+    class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+	    <property name="converters">
+	       <list>
+	          <bean class="app.service.converters.IdToInstanceConverter"/>
+	       </list>
+	    </property>
+	</bean>
 	<!-- ******************************************************************** -->
 	<!-- Register Streamed Binary Content View -->
 	<!-- ******************************************************************** -->	

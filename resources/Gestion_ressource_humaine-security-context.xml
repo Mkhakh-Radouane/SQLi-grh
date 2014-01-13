@@ -1,14 +1,54 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/security" 
-	xmlns:beans="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context" 
-	xmlns:lang="http://www.springframework.org/schema/lang"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-    	http://www.springframework.org/schema/security 
-		http://www.springframework.org/schema/security/spring-security-3.1.xsd
-      	http://www.springframework.org/schema/context 
-      	http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:lang="http://www.springframework.org/schema/lang" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-3.1.xsd      http://www.springframework.org/schema/security    http://www.springframework.org/schema/security/spring-security-3.1.xsd        http://www.springframework.org/schema/context         http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
+<http auto-config="true">
+		<intercept-url pattern="/pages/login.jsp"/>
+		<intercept-url access="IS_AUTHENTICATED_REMEMBERED" pattern="/logged/*"/>
+		<intercept-url access="IS_AUTHENTICATED_REMEMBERED" pattern="/logged/*"/>
+		<form-login always-use-default-target="false" authentication-failure-url="/pages/login.jsp?login_error=true" default-target-url="/index.jsp" login-page="/pages/login.jsp"/> 
+		<logout invalidate-session="true" logout-success-url="/pages/logout-redirect.jsp"/>
+		<remember-me key="Gestion_ressource_humaineRMKey" user-service-ref="userDetailsService"/>
+	</http>
+<authentication-manager alias="authenticationManager">
+	
+	<authentication-provider user-service-ref="userDetailsService">
+		<password-encoder hash="plaintext"/>
+	</authentication-provider>
+</authentication-manager>
+<beans:bean class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl" id="userDetailsService">
+		<beans:property name="rolePrefix" value="ROLE_"/>
+		<beans:property name="dataSource" ref="springSecurityDataSource"/>
+		<beans:property name="usersByUsernameQuery" value="SELECT login,password,activation FROM Compte WHERE login = ?"/>
+		<beans:property name="authoritiesByUsernameQuery" value="SELECT u.login, pd.droit FROM Compte u JOIN Profile p on u.profile = p.id inner JOIN profile_droit pd  on  p.id  = pd.profile WHERE u.login = ?"/>
+	</beans:bean>
+<global-method-security>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.service.BuService.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.service.CollaborateurService.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.service.CompteService.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.service.DiplomeService.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.service.DroitService.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.service.EcoleService.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.service.ManagerRhStatusService.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.service.NiveauService.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.service.PosteService.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.service.ProfileService.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.service.SalaireService.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.service.TechnologieService.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.service.TechnologiesMaitriseesService.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.dao.BuDAO.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.dao.CollaborateurDAO.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.dao.CompteDAO.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.dao.DiplomeDAO.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.dao.DroitDAO.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.dao.EcoleDAO.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.dao.ManagerRhStatusDAO.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.dao.NiveauDAO.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.dao.PosteDAO.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.dao.ProfileDAO.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.dao.SalaireDAO.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.dao.TechnologieDAO.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.dao.TechnologiesMaitriseesDAO.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.UsersDAO.*(..))"/>
+		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.AuthoritiesDAO.*(..))"/>
+	</global-method-security>
 </beans:beans>

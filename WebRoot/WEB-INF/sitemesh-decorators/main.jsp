@@ -5,6 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<%@taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
+	<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
     <head>
 
 	<meta charset="utf-8">
@@ -84,7 +85,7 @@
 							<li><a href="#"><i class="icon-user"></i> Profile</a></li>
 							
 							<li class="divider"></li>
-							<li><a href="#"><i class="icon-off"></i> DeconnectÃ©</a></li>
+							<li><a href="#"><i class="icon-off"></i> Deconnecté</a></li>
 						</ul>
 						<!-- / User Navigation: User Dropdown -->
 
@@ -104,13 +105,9 @@
 		<div class="breadcrumb clearfix">
 
 			<!-- Top Fixed Bar: Breadcrumb Container -->
+			
 			<div class="container">
-
-				<!-- Top Fixed Bar: Breadcrumb Location -->
-				<ul class="pull-left">
-					<li><a href="#"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
-					<li class="active"><a href="#"><i class="icon-align-justify"></i> Dashboard</a></li>
-				</ul>
+		
 				<!-- / Top Fixed Bar: Breadcrumb Location -->
 
 				<!-- Top Fixed Bar: Breadcrumb Right Navigation -->
@@ -118,12 +115,16 @@
 
 					
 					<!-- / Top Fixed Bar: Breadcrumb Theme -->
-
-					<li><a href="login.html"><i class="icon-off"></i> Logout</a></li>
+					<sec:authorize ifNotGranted="ROLE_ANONYMOUS">
+			
+					<li><%session.getAttribute("role");%> : <sec:authentication property="principal.username"/> <a href="j_spring_security_logout"><i class="icon-off"></i> Logout</a></li>
+				</sec:authorize>
 				</ul>
+				
 				<!-- / Top Fixed Bar: Breadcrumb Right Navigation -->
 
 			</div>
+			
 			<!-- / Top Fixed Bar: Breadcrumb Container -->
 
 		</div>
@@ -136,7 +137,7 @@
 	<div id="settings" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
 		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			<h3 id="myModalLabel"><i class="icon-cog"></i> Account settings</h3>
 		</div>
 
@@ -203,7 +204,7 @@
 	<div id="messages" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
 		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			<h3 id="myModalLabel"><i class="icon-comment"></i> Messages</h3>
 		</div>
 
@@ -247,7 +248,7 @@
 	<div id="newmessage" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
 		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			<h3 id="myModalLabel"><i class="icon-comment"></i> New Message</h3>
 		</div>
 
@@ -315,68 +316,67 @@
 			<div class="navbar-inner">
 
 				<!-- Main Navigation: Nav -->
-				<ul class="nav">
+				
 
 					<!-- Main Navigation: Dashboard -->
-					<li class="active"><a href="index-2.html"><i class="icon-align-justify"></i> Dashboard</a></li>
+				<sec:authorize ifAnyGranted="ROLE_3">
+				<ul class="nav">
+					<li class="active"><a href="index-2.html"><i class="icon-align-justify"></i> Acceuil</a></li>
 					<!-- / Main Navigation: Dashboard -->
 
 					<!-- Main Navigation: General -->
 					<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<i class="icon-th"></i> General <b class="caret"></b>
+								<i class="icon-th"></i> Gestion Des Comptes <b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="grid.html"><i class="icon-th"></i> Grid</a></li>
-								<li><a href="icons.html"><i class="icon-circle"></i> Icons</a></li>
-								<li><a href="typography.html"><i class="icon-font"></i> Typography</a></li>
-								<li><a href="buttons.html"><i class="icon-circle-blank"></i> Buttons</a></li>
+								<li><a href="${pageContext.request.contextPath}/newCompte"><i class="icon-th"></i> Ajouter un Compte</a></li>
+								<li><a href="icons.html"><i class="icon-circle"></i> Liste Des comptes</a></li>
+								
 							</ul>
 					</li>
-					<!-- / Main Navigation: General -->
-
-					<!-- Main Navigation: UI Elements -->
-					<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-magic">
-								</i> UI Elements <b class="caret"></b>
-							</a>
-							<ul class="dropdown-menu">
-								<li><a href="forms.html"><i class="icon-check"></i> Forms</a></li>
-								<li><a href="wysiwyg.html"><i class="icon-edit"></i> WYSIWYG</a></li>
-								<li><a href="tabs.html"><i class="icon-th-large"></i> Tabs / Accordion</a></li>
-							</ul>
-					</li>
-					<!-- / Main Navigation: UI Elements -->
-
-					<!-- Main Navigation: Components -->
-					<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<i class="icon-th-large"></i> Components <b class="caret"></b>
-							</a>
-							<ul class="dropdown-menu">
-								<li><a href="calendar.html"><i class="icon-calendar"></i> Calendar</a></li>
-								<li><a href="maps.html"><i class="icon-map-marker"></i> Maps</a></li>
-								<li><a href="tables.html"><i class="icon-table"></i> Tables</a></li>
-								<li><a href="charts.html"><i class="icon-bar-chart"></i> Charts</a></li>
-								<li><a href="login.html"><i class="icon-key"></i> Login</a></li>
-								<li class="dropdown-submenu">
-									<a href="#"><i class="icon-signin"></i> Sub-Menu</a>
-									<ul class="dropdown-menu">
-										<li><a href="#"><i class="icon-signout"></i> This</a></li>
-										<li><a href="#"><i class="icon-sitemap"></i> Is</a></li>
-										<li><a href="#"><i class="icon-share-alt"></i> An</a></li>
-										<li><a href="#"><i class="icon-reorder"></i> Example</a></li>
-									</ul>
-								</li>
-							</ul>
-					</li>
-					<!-- / Main Navigation: Components -->
-
-					<!-- Main Navigation: Gallery -->
-					<li><a href="gallery.html"><i class="icon-picture"></i> Gallery</a></li>
+					
 					<!-- / Main Navigation: Gallery -->
 
 				</ul>
+			
+				</sec:authorize>
+				<sec:authorize ifAnyGranted="ROLE_2">
+				<ul class="nav">
+					<li class="active"><a href="index-2.html"><i class="icon-align-justify"></i> Acceuil</a></li>
+					<!-- / Main Navigation: Dashboard -->
+
+					<!-- Main Navigation: General -->
+					<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<i class="icon-th"></i> Gestion Des Collaborateurs <b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="grid.html"><i class="icon-th"></i> Ajouter un collaborateur</a></li>
+								<li><a href="icons.html"><i class="icon-circle"></i> Liste Des collaborateurs</a></li>
+								<li><a href="icons.html"><i class="icon-circle"></i> Liste Des collaborateurs</a></li>
+								
+							</ul>
+					</li>
+					<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<i class="icon-th"></i> Gestion Des Managers RH <b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="grid.html"><i class="icon-th"></i> Ajouter un collaborateur</a></li>
+								<li><a href="icons.html"><i class="icon-circle"></i> Liste Des collaborateurs</a></li>
+								<li><a href="icons.html"><i class="icon-circle"></i> Liste Des collaborateurs</a></li>
+								
+							</ul>
+					</li>
+					<li class="active"><a href="index-2.html"><i class="icon-align-justify"></i> Visualiser les rapports</a></li>
+					
+					<!-- / Main Navigation: Gallery -->
+
+				</ul>
+			
+				</sec:authorize>
+
 				<!-- / Main Navigation: Nav -->
 			
 				<!-- Main Navigation: Search -->

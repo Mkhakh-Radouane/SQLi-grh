@@ -1,29 +1,29 @@
 package app.web;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import app.dao.CompteDAO;
 import app.dao.ManagerRhStatusDAO;
 import app.dao.ProfileDAO;
-
 import app.domain.Compte;
 import app.domain.ManagerRhStatus;
 import app.domain.Profile;
-
 import app.service.CompteService;
+import app.service.ProfileService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.WebDataBinder;
-
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -61,6 +61,8 @@ public class CompteController {
 	 */
 	@Autowired
 	private CompteService compteService;
+	@Autowired
+	private ProfileService profileService;
 
 	/**
 	 * Show all Compte entities
@@ -100,7 +102,15 @@ public class CompteController {
 	@RequestMapping("/editCompte")
 	public ModelAndView editCompte(@RequestParam Integer idKey) {
 		ModelAndView mav = new ModelAndView();
-
+		List<Profile> profiles= profileService.findAllProfiles(idKey,10);
+		Map<String,String> profileList = new LinkedHashMap<String,String>();
+		for (Profile profile : profiles) {
+			profileList.put(profile.getId().toString(),profile.getProfileField());
+		}
+	
+		
+		
+		mav.addObject("profilesList", profileService.findAllProfiles(idKey,10).toString());
 		mav.addObject("compte", compteDAO.findCompteByPrimaryKey(idKey));
 		mav.setViewName("compte/editCompte.jsp");
 
@@ -154,6 +164,7 @@ public class CompteController {
 	 * 
 	 */
 	@RequestMapping("/saveCompte")
+	
 	public String saveCompte(@ModelAttribute Compte compte) {
 		compteService.saveCompte(compte);
 		return "forward:/indexCompte";
@@ -319,7 +330,13 @@ public class CompteController {
 	@RequestMapping("/newCompte")
 	public ModelAndView newCompte() {
 		ModelAndView mav = new ModelAndView();
-
+		
+		Set<Profile> profiles= profileService.loadProfiles();
+		Map<String,String> profileList = new LinkedHashMap<String,String>();
+		for (Profile profile : profiles) {
+			profileList.put(profile.getId().toString(),profile.getProfileField().toString());
+		}
+		mav.addObject("profiles", profileList);
 		mav.addObject("compte", new Compte());
 		mav.addObject("newFlag", true);
 		mav.setViewName("compte/editCompte.jsp");
