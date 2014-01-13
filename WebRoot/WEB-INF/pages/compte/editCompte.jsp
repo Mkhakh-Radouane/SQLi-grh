@@ -47,7 +47,7 @@
 							<fmt:message key="compte.password.title"/>:
 						</td>
 						<td>
-							<form:input id="compte_password" path="password" cssStyle="width:300px;"/>
+							<form:password id="compte_password" path="password" cssStyle="width:300px;"/>
 							<script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : "compte_password",widgetType : "dijit.form.ValidationTextBox",widgetAttrs : {promptMessage: "<fmt:message key="compte.password.help"/>"}})); </script>
 						</td>
 					</tr>
@@ -67,7 +67,7 @@
 						<td>
 						  <form:select path="profile" required="true">
 	                <form:option value="-" label="--Select a profile"/>
-                <form:options items="${profiles}"/>
+                <form:options items="${profiles}" itemValue="id" itemLabel="profileField" />
 	          </form:select>
 						</td>
 					</tr>

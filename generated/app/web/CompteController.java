@@ -14,11 +14,15 @@ import app.domain.Profile;
 import app.service.CompteService;
 import app.service.ProfileService;
 
+import app.service.converters.ProfileEditor;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -159,14 +163,17 @@ public class CompteController {
 		return mav;
 	}
 
+
 	/**
 	 * Save an existing Compte entity
 	 * 
 	 */
 	@RequestMapping("/saveCompte")
 	
-	public String saveCompte(@ModelAttribute Compte compte) {
-		compteService.saveCompte(compte);
+	public String saveCompte(@Validated @ModelAttribute Compte formcompte, HttpServletRequest request ) {
+
+        System.out.println(formcompte.getProfile());
+		compteService.saveCompte(formcompte);
 		return "forward:/indexCompte";
 	}
 
@@ -245,6 +252,7 @@ public class CompteController {
 		binder.registerCustomEditor(String.class, new org.skyway.spring.util.databinding.StringEditor());
 		binder.registerCustomEditor(Long.class, new org.skyway.spring.util.databinding.NaNHandlingNumberEditor(Long.class, true));
 		binder.registerCustomEditor(Double.class, new org.skyway.spring.util.databinding.NaNHandlingNumberEditor(Double.class, true));
+		binder.registerCustomEditor(Profile.class, new ProfileEditor(this.profileService));
 	}
 
 	/**
@@ -336,7 +344,7 @@ public class CompteController {
 		for (Profile profile : profiles) {
 			profileList.put(profile.getId().toString(),profile.getProfileField().toString());
 		}
-		mav.addObject("profiles", profileList);
+		mav.addObject("profiles", profiles);
 		mav.addObject("compte", new Compte());
 		mav.addObject("newFlag", true);
 		mav.setViewName("compte/editCompte.jsp");

@@ -50,10 +50,10 @@
 	<!-- Converter -->
 	<!-- ******************************************************************** -->	
 	<bean id="conversionService"
-    class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+    class="org.springframework.context.support.ConversionServiceFactoryBean">
 	    <property name="converters">
 	       <list>
-	          <bean class="app.service.converters.IdToInstanceConverter"/>
+	          
 	       </list>
 	    </property>
 	</bean>

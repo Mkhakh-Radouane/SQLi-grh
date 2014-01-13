@@ -48,7 +48,6 @@
 		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.dao.SalaireDAO.*(..))"/>
 		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.dao.TechnologieDAO.*(..))"/>
 		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.dao.TechnologiesMaitriseesDAO.*(..))"/>
-		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.UsersDAO.*(..))"/>
-		<protect-pointcut access="IS_AUTHENTICATED_REMEMBERED" expression="execution(* app.AuthoritiesDAO.*(..))"/>
+		
 	</global-method-security>
 </beans:beans>
